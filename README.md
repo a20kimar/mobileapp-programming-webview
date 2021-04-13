@@ -1,42 +1,35 @@
-
 # Rapport
 
-**Skriv din rapport här!**
+Jag började med att forka appen sedan öppna den i android studios.
+Jag bytte sedan namn på appen och la till internetmöjlighet i `AndroidManifest.xml` filen som följade kodsnutt visar
 
-_Du kan ta bort all text som finns sedan tidigare_.
-
-## Följande grundsyn gäller dugga-svar:
-
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
-
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
-
-```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
-    }
-}
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+...
+<activity
+...
+ android:label="@string/app_name">
 ```
 
-Bilder läggs i samma mapp som markdown-filen.
+Jag bytte sedan ut det text element som fanns i `content_main.xml` till mitt egna WebView element istället och instantierade det i `MainActivity`.
 
-![](android.png)
+Jag instantierade mitt WebView objekt som finns i layout filen i koden genom att använda mig utav `findViewById(R.id.my_webview);` och därefter instantierade jag en WebViewClient och använder den i mitt WebView objekt. Sedan aktiverade jag möjligheten för javascript som syns i kodsnutten nedan.
 
-Läs gärna:
+```java
+myWebview = findViewById(R.id.my_webview);
 
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+WebViewClient myWebViewClient = new WebViewClient();
+myWebview.setWebViewClient(myWebViewClient);
+
+WebSettings webSettings = myWebview.getSettings();webSettings.setJavaScriptEnabled(true);
+```
+
+För att använda en intern websida var jag tvungen att skapa en mapp för assets som jag sedan la en html fil i. Jag gjorde bara en simpel fil med text i.
+
+För att få meny-valen att fungera som finns i menyn längst upp till höger i appen var jag tvungen att lägga till funktionerna `showExternalWebPage()` och `showInternalWebPage()` innuti if-taggarna som finns i funktionen `onOptionsItemSelected()`
+
+Sedan la jag in `myWebView.loadUrl()` i respektive funktion för att visa extern och intern webplats.
+Nedan är två screenshots från respektive intern och extern webplats.
+
+![Intern webplats](screenshot_1.png)
+![Extern webplats](screenshot_2.png)
