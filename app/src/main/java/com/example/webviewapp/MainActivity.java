@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
         WebViewClient myWebViewClient = new WebViewClient();
         myWebview.setWebViewClient(myWebViewClient);
+
+        WebSettings webSettings = myWebview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        myWebview.loadUrl("https://www.google.se/");
 
         /*
         * Rename your App. Tip: Values->Strings
