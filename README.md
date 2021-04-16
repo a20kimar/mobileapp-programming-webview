@@ -1,14 +1,11 @@
 # Rapport
 
 Jag började med att forka appen sedan öppna den i android studios.
-Jag bytte sedan namn på appen och la till internetmöjlighet i `AndroidManifest.xml` filen som följade kodsnutt visar
+Jag ändrade namn på appen i filen `strings.xml`.
+Jag la till internetmöjlighet i `AndroidManifest.xml` filen som följade kodsnutt visar.
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
-...
-<activity
-...
- android:label="@string/app_name">
 ```
 
 Jag bytte sedan ut det text element som fanns i `content_main.xml` till mitt egna WebView element istället och instantierade det i `MainActivity`.
@@ -26,7 +23,20 @@ WebSettings webSettings = myWebview.getSettings();webSettings.setJavaScriptEnabl
 
 För att använda en intern websida var jag tvungen att skapa en mapp för assets som jag sedan la en html fil i. Jag gjorde bara en simpel fil med text i.
 
-För att få meny-valen att fungera som finns i menyn längst upp till höger i appen var jag tvungen att lägga till funktionerna `showExternalWebPage()` och `showInternalWebPage()` innuti if-taggarna som finns i funktionen `onOptionsItemSelected()`
+För att få meny-valen att fungera som finns i menyn längst upp till höger i appen var jag tvungen att lägga till funktionerna `showExternalWebPage()` och `showInternalWebPage()` innuti if-taggarna som finns i funktionen `onOptionsItemSelected()` som visas i kod-snutten nedan.
+
+```java
+public boolean onOptionsItemSelected(MenuItem item) {
+    ...
+
+    if (id == R.id.action_external_web) {
+        Log.d("==>","Will display external web page");
+        showExternalWebPage();
+        return true;
+    }
+    ...
+}
+```
 
 Sedan la jag in `myWebView.loadUrl()` i respektive funktion för att visa extern och intern webplats.
 Nedan är två screenshots från respektive intern och extern webplats.
